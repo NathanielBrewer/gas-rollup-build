@@ -22,9 +22,10 @@ export default {
   },
   treeshake: false,
   plugins: [
-    //Inject files imported into multiple files here so individual imports do not cause collisons and get renamed by Rollup 
+    // Inject files imported into multiple files here so individual imports do not cause collisons and get renamed by Rollup 
     // Example: { NameForInjectedClass: path.resolve('src/ExampleClassToInject.js'), }
-    inject(),
+    // Uncomment `inject()` to use it. It will error if you don't provide it with a valid param
+    // inject(),
     // Delete anything currently in the dist folder
     del({ targets: 'dist/*' }),
     resolve(),
