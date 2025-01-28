@@ -4,6 +4,7 @@ import copy from 'rollup-plugin-copy';
 import strip from '@rollup/plugin-strip';
 import del from "rollup-plugin-delete";
 import inject from '@rollup/plugin-inject';
+import path from 'path';
 
 const environment = process.env.NODE_ENV || 'dev'; 
 console.log('[rollup.config.js] environment:', environment);
@@ -21,15 +22,24 @@ export default {
   },
   treeshake: false,
   plugins: [
-    // Use inject so individual imports do not cause collisons and get renamed by Rollup 
-    inject(),
+    // These are injected here so individual imports do not cause collisons and get renamed by Rollup 
+    inject({
+      SheetUtils: path.resolve('src/SheetUtils.js' ),
+      ScriptUtils: path.resolve('src/ScriptUtils.js'),
+      executeFunctionByName: path.resolve('src/executeFunctionByName.js'),
+      onFileUploadClick: path.resolve('src/onFileUploadClick.js'),
+    }),
     del({ targets: 'dist/*' }),
     resolve(),
     commonjs(),
-    // Use copy for files that you want to copy into the dist/<target> folder, such as HTML files
-    copy(),
+    copy({
+      targets: [
+        { src: 'src/uploader.html', dest: `dist/${environment}`},
+        { src: 'appsscript.json', dest: `dist/${environment}` },
+        { src: '.clasp.json', dest: `dist/${environment}` },
+      ]
+    }),
     isProduction && strip({
-      // Remove console.log in production
       functions: ['console.log'],
     })
   ],
