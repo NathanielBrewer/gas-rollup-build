@@ -19,12 +19,14 @@ const path = require('path');
     claspConfig.rootDir = path.join(process.cwd(), 'dist', environment);
     
     const propertyName = `${environment}ScriptId`;
-    if(claspConfig.hasOwnProperty(propertyName) && claspConfig[propertyName]) {
+    if(claspConfig.hasOwnProperty(propertyName)) {
       claspConfig.scriptId = claspConfig[propertyName];
-      await fs.promises.writeFile(claspConfigPath, JSON.stringify(claspConfig, null, 2), 'utf8');
     } else {
-      console.warn( `[adjustClasp.js] Setting scriptId for target failed. No ScriptId found for target: ${environment}. .clasp.json will not be adjusted.`);
+      console.warn( `[adjustClasp.js] Setting scriptId for target failed. No ScriptId found for target: ${environment}. Using current scriptId instead: ${claspConfig.scriptId}`);
     }
+
+    await fs.promises.writeFile(claspConfigPath, JSON.stringify(claspConfig, null, 2), 'utf8');
+
   } catch (error) {
     console.error('[adjustClasp] Caught an error:', error);
   }
