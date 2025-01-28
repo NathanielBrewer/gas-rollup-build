@@ -22,19 +22,16 @@ export default {
   },
   treeshake: false,
   plugins: [
-    // These are injected here so individual imports do not cause collisons and get renamed by Rollup 
-    inject({
-      SheetUtils: path.resolve('src/SheetUtils.js' ),
-      ScriptUtils: path.resolve('src/ScriptUtils.js'),
-      executeFunctionByName: path.resolve('src/executeFunctionByName.js'),
-      onFileUploadClick: path.resolve('src/onFileUploadClick.js'),
-    }),
+    //Inject files imported into multiple files here so individual imports do not cause collisons and get renamed by Rollup 
+    // Example: { NameForInjectedClass: path.resolve('src/ExampleClassToInject.js'), }
+    inject(),
+    // Delete anything currently in the dist folder
     del({ targets: 'dist/*' }),
     resolve(),
     commonjs(),
+    // Add files here that you don't want rollup to touch, like JSON or HTML
     copy({
       targets: [
-        { src: 'src/uploader.html', dest: `dist/${environment}`},
         { src: 'appsscript.json', dest: `dist/${environment}` },
         { src: '.clasp.json', dest: `dist/${environment}` },
       ]
