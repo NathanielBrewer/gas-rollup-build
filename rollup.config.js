@@ -4,6 +4,7 @@ import copy from 'rollup-plugin-copy';
 import strip from '@rollup/plugin-strip';
 import del from "rollup-plugin-delete";
 import inject from '@rollup/plugin-inject';
+import path from 'path';
 
 const environment = process.env.NODE_ENV || 'dev'; 
 console.log('[rollup.config.js] environment:', environment);
@@ -21,15 +22,23 @@ export default {
   },
   treeshake: false,
   plugins: [
-    // Use inject so individual imports do not cause collisons and get renamed by Rollup 
-    inject(),
+    // Inject files imported into multiple files here so individual imports do not cause collisons and get renamed by Rollup 
+    // Example: { NameForInjectedClass: path.resolve('src/ExampleClassToInject.js'), }
+    // Uncomment `inject()` to use it. It will error if you don't provide it with a valid param
+    // inject(),
+    // Delete anything currently in the dist folder
     del({ targets: 'dist/*' }),
     resolve(),
     commonjs(),
-    // Use copy for files that you want to copy into the dist/<target> folder, such as HTML files
-    copy(),
+    // Add files here that you don't want rollup to touch, like JSON or HTML
+    copy({
+      targets: [
+        { src: 'appsscript.json', dest: `dist/${environment}` },
+        { src: '.clasp.json', dest: `dist/${environment}` },
+        { src: 'src/index.html', dest: `dist/${environment}` },
+      ]
+    }),
     isProduction && strip({
-      // Remove console.log in production
       functions: ['console.log'],
     })
   ],
