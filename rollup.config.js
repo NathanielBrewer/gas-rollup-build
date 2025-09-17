@@ -36,7 +36,10 @@ export default {
         { src: 'appsscript.json', dest: `dist/${environment}` },
         { src: '.clasp.json', dest: `dist/${environment}` },
         { src: 'src/index.html', dest: `dist/${environment}` },
-      ]
+      ],
+      globOptions: {
+        dot: true,
+      }
     }),
     isProduction && strip({
       functions: ['console.log'],
