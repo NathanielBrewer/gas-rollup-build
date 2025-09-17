@@ -15,21 +15,27 @@ Develop modular JavaScript with `import` and `export` statements, NPM packages, 
 
     ```bash
     npm install
+
     ```
 
-3. **Configure Google Apps Script**
+3. **Login to with Clasp**
+    ```bash
+    npx clasp login
+    ```
+
+4. **Configure Google Apps Script**
 
     - Navigate to your Google Apps Script project and open the Project Settings
-    - Copy the Script ID and paste it into either the `devScriptId`, `prodScriptId`, or the `scriptId` variable in the .clasp.json file located at `src/.clasp.json`
-    - Adjust the appscript.json as needed. Documentation available [here](https://developers.google.com/apps-script/manifest)
+    - Copy the Script ID and paste it into either the `devScriptId`, `prodScriptId`, or the `scriptId` variable in the .clasp.json file located at `/.clasp.json`
+    - Adjust the appsscript.json as needed. Documentation available [here](https://developers.google.com/apps-script/manifest)
 
-4. **Develop**
+5. **Develop**
 
     - The entry file is `src/code.js`. This gets built to `build/<target>/code.gs`, which is a runnable Google Apps Script file.
     - After making changes and any files in the `src/` directory, a `build:<target>` command must be run before those changes will be exectuable by Google Apps Script.
     - While developing, make your changes and then use `reload:<target>` to run both `build:<target>` and `push:<target>` commands.
 
-5. **Build**
+6. **Build**
 
     The build step is required to convert the files into a single Google Script file that can then be pushed and deployed to your Apps Script project.
 
@@ -39,7 +45,7 @@ Develop modular JavaScript with `import` and `export` statements, NPM packages, 
     ```
     where the "target" is either `prod` or `dev`
 
-6. **Push**
+7. **Push**
 
     Invoke `clasp push` for either the `prod` or `dev` script ID
   
@@ -47,7 +53,7 @@ Develop modular JavaScript with `import` and `export` statements, NPM packages, 
     npm run push:<target>
     ```
 
-7. **Deploy**
+8. **Deploy**
 
     Invoke `clasp deploy` for either the `prod` or `dev` script ID
   
@@ -55,7 +61,7 @@ Develop modular JavaScript with `import` and `export` statements, NPM packages, 
     npm run deploy:<target>
     ```
 
-8. **Reload**
+9. **Reload**
 
     For faster development, build and push in one command
 
