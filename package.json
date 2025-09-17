@@ -4,8 +4,6 @@
   "description": "A Rollup project configrured for use Google Apps Script development using Clasp. It allows you to develop for Google Apps Script while modern JS practices and then to build to a single `code.gs` file that is ready for deployment to your Google Apps Script project.",
   "main": "code.js",
   "scripts": {
-    "build:dev": "NODE_ENV=dev rollup -c && NODE_ENV=dev node ./build/adjustClasp.js",
-    "build:prod": "NODE_ENV=prod rollup -c && NODE_ENV=prod node ./build/adjustClasp.js",
     "compile": "node ./scripts/compile.js",
     "prebuild:dev": "npm run compile",
     "prebuild:prod": "npm run compile",
