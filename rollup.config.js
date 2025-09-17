@@ -5,13 +5,19 @@ import strip from '@rollup/plugin-strip';
 import del from "rollup-plugin-delete";
 import inject from '@rollup/plugin-inject';
 import path from 'path';
+import fs from 'fs';
 
-const environment = process.env.NODE_ENV || 'dev'; 
+const environment = process.env.NODE_ENV || 'dev';
 console.log('[rollup.config.js] environment:', environment);
 const isProduction = (environment == 'prod');
 
+const compiledEntry = path.resolve('.tmp', 'code.js');
+if (!fs.existsSync(compiledEntry)) {
+  throw new Error('Missing compiled entry at .tmp/code.js. Run "npm run compile" before bundling.');
+}
+
 export default {
-  input: 'src/code.js',
+  input: compiledEntry,
   output: {
     dir: `dist/${environment}`,
     format: 'cjs',
@@ -27,8 +33,10 @@ export default {
     // Uncomment `inject()` to use it. It will error if you don't provide it with a valid param
     // inject(),
     // Delete anything currently in the dist folder
-    del({ targets: 'dist/*' }),
-    resolve(),
+    del({ targets: `dist/${environment}` }),
+    resolve({
+      extensions: ['.mjs', '.js', '.json', '.node']
+    }),
     commonjs(),
     // Add files here that you don't want rollup to touch, like JSON or HTML
     copy({

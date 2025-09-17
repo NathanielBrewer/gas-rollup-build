@@ -31,8 +31,12 @@ Develop modular JavaScript with `import` and `export` statements, NPM packages, 
 
 5. **Develop**
 
-    - The entry file is `src/code.js`. This gets built to `build/<target>/code.gs`, which is a runnable Google Apps Script file.
+    - The entry file is `src/code.js`. This gets built to `build/<target>/code.gs`, which is a runnable Google Apps Script file. **Do not add exports to code.js** They don't make sense in the Apps Script context and will the resultant GS file will throw an error.
     - After making changes and any files in the `src/` directory, a `build:<target>` command must be run before those changes will be exectuable by Google Apps Script.
+    - The entry file is `src/code.ts` when present. If you prefer plain JavaScript, remove or rename it and the bundler will fall back to `src/code.js`. Either option is compiled to `dist/<target>/code.gs`, which is a runnable Google Apps Script file.
+    - TypeScript is configured with `allowJs`, so `.js` and `.ts` modules can live side by side and import one another. Add ambient types or JSDoc comments to your JavaScript files if you want improved editor IntelliSense.
+    - Use `npm run compile` if you need to regenerate the intermediate `.tmp/` output without executing a full build.
+    - After making changes to any files in the `src/` directory, a `build:<target>` command must be run before those changes will be executable by Google Apps Script.
     - While developing, make your changes and then use `reload:<target>` to run both `build:<target>` and `push:<target>` commands.
 
 6. **Build**

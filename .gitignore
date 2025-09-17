@@ -1,5 +1,6 @@
 .clasp.json
 /dist
+/\.tmp
 /node_modules
 .claspignore
 package-lock.json

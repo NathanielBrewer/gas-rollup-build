@@ -4,8 +4,13 @@
   "description": "A Rollup project configrured for use Google Apps Script development using Clasp. It allows you to develop for Google Apps Script while modern JS practices and then to build to a single `code.gs` file that is ready for deployment to your Google Apps Script project.",
   "main": "code.js",
   "scripts": {
-    "build:dev": "NODE_ENV=dev rollup -c && NODE_ENV=dev node ./adjustClasp.js",
-    "build:prod": "NODE_ENV=prod rollup -c && NODE_ENV=prod node ./adjustClasp.js",
+    "build:dev": "NODE_ENV=dev rollup -c && NODE_ENV=dev node ./build/adjustClasp.js",
+    "build:prod": "NODE_ENV=prod rollup -c && NODE_ENV=prod node ./build/adjustClasp.js",
+    "compile": "node ./scripts/compile.js",
+    "prebuild:dev": "npm run compile",
+    "prebuild:prod": "npm run compile",
+    "build:dev": "cross-env NODE_ENV=dev rollup -c && cross-env NODE_ENV=dev node ./adjustClasp.js",
+    "build:prod": "cross-env NODE_ENV=prod rollup -c && cross-env NODE_ENV=prod node ./adjustClasp.js",
     "push:dev": "cd ./dist/dev && npx clasp push",
     "push:prod": "cd ./dist/prod && npx clasp push",
     "deploy:dev": "cd ./dist/dev && npx clasp deploy",
@@ -42,6 +47,7 @@
     "cross-env": "^7.0.3",
     "rollup": "^4.50.2",
     "rollup-plugin-copy": "^3.5.0",
-    "rollup-plugin-delete": "^3.0.1"
+    "rollup-plugin-delete": "^3.0.1",
+    "typescript": "^5.6.3"
   }
 }
