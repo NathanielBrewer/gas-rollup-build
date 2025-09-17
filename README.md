@@ -26,7 +26,7 @@ Develop modular JavaScript with `import` and `export` statements, NPM packages, 
 4. **Configure Google Apps Script**
 
     - Navigate to your Google Apps Script project and open the Project Settings
-    - Copy the Script ID and paste it into either the `devScriptId`, `prodScriptId`, or the `scriptId` variable in the .clasp.json file located at `src/.clasp.json`
+    - Copy the Script ID and paste it into either the `devScriptId`, `prodScriptId`, or the `scriptId` variable in the .clasp.json file located at `/.clasp.json`
     - Adjust the appsscript.json as needed. Documentation available [here](https://developers.google.com/apps-script/manifest)
 
 5. **Develop**
